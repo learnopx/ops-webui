@@ -1,0 +1,150 @@
+/*
+ * View styles.
+ * @author Frank Wood
+ */
+
+ // Allows the view box elements to expand when needed in the view pane.
+.viewFill {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    padding: 4px;
+}
+
+// Style a view element to flex in the left-to-right direction,
+// wrapping children.
+.viewRow {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    box-sizing: border-box;
+    min-height: 100px;
+    min-width: 100px;
+
+    &.spaceBetween {
+        justify-content: space-between;
+    }
+}
+
+// Style a view element to flex in the top-to-bottom direction
+.viewCol {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100px;
+    min-width: 100px;
+
+    &.spaceBetween {
+        justify-content: space-between;
+    }
+}
+
+// Style a view element as a 'viewBox'
+// ...with a background, border, min height/width, etc.
+.viewBox {
+    background-color: $viewBoxBackgroundColor;
+    border-radius: 5px;
+    box-shadow: $viewBoxShadow;
+    margin-top: $viewPaneMargin;
+    margin-left: $viewPaneMargin;
+    margin-right: $viewPaneMargin;
+    padding: 8px;
+    box-sizing: border-box;
+    min-height: 100px;
+    min-width: 100px;
+    overflow: auto;
+}
+
+// Style the contents to fill the flex container
+.fillRow, .fillColumn {
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+}
+
+// Style the content portion of a viewBox. This is the area right below the
+// header (if there is one).
+.viewBoxContent {
+    overflow: auto;
+
+    // center contents in viewBoxContent
+    &.center {
+        text-align: center;
+    }
+
+    // add margin to viewBox Contents
+    &.margin {
+        margin: 16px;
+    }
+}
+
+// Style a view element relative to other siblings (1, 2, or 3).
+.viewFlex0 {
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+    -moz-flex: 0 0 auto;
+}
+.viewFlex1 {
+    flex: 1 1 auto;
+    -webkit-flex: 1 1 auto;
+    -moz-flex: 1 1 auto;
+}
+.viewFlex2 {
+    flex: 2;
+    -webkit-flex: 2;
+    -moz-flex: 2;
+}
+.viewFlex3 {
+    flex: 3;
+    -webkit-flex: 3;
+    -moz-flex: 3;
+}
+
+// Style the viewBoxHeader (used in the ViewBoxHeader component).
+.viewBoxHeader {
+
+    @media #{$smallScreen} {
+        font-size: $viewBoxHeaderFontSizeLarge;
+    }
+
+    @media #{$mediumScreen} {
+        font-size: $viewBoxHeaderFontSize;
+    }
+
+    @media #{$largeScreen} {
+        font-size: $viewBoxHeaderFontSize;
+    }
+
+    box-sizing: border-box;
+    border-bottom: $viewBoxHeaderBorderBottom;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    line-height: $viewBoxHeaderFontSize;
+    font-weight: $viewBoxHeaderFontWeight;
+    margin-bottom: 10px;
+
+    //flex icons inline with div components
+    .flexIcons {
+        flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        display: flex;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+
+        // IE 10 support
+        > span {
+            display: -ms-flexbox;
+        }
+    }
+}

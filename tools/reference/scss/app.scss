@@ -1,0 +1,337 @@
+/*
+ * Application styles that control the main layout.
+ * @author Kelsey Dedoshka
+ * @author Frank Wood
+ */
+
+/*
+ * Global browser settings.
+ */
+
+html, body, {
+    // We will control the margins, paddings and border.
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+    // Normalize font, line-height so we can use 'em' sizes.
+    font-size: 100%;
+    line-height: 1em;
+
+    // Makes sure the html/body fills the entire browser view.
+    // This is needed so that the child containers can fill as well.
+    height: 100%;
+
+    // remove the scrollbar styling from the page
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    //remove scrollbars (IE)
+    -ms-overflow-style: none;
+}
+
+/*
+ * Mast
+ *  -Fixed to the top of the browser
+ *  -doesn't scroll
+ */
+
+#mast {
+    //small screen
+    @media #{$smallScreen} {
+        height: $mastHeightSmallScreen;
+    }
+
+    //default - medium + large screens
+    @media #{$mediumScreen, $largeScreen} {
+        height: $mastHeight;
+    }
+
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+
+    line-height: $mastHeight;
+
+    z-index: 100;
+
+    box-sizing: border-box;
+    padding: 0px 16px 0px 0px;
+
+    overflow: hidden;
+
+    background-color: $mastBackgroundColor;
+    color: $mastTextColor;
+
+    border-bottom: solid 1px $mastBorderBottomColor;
+
+    display: flex;
+    justify-content: space-between;
+
+    img {
+
+        //small screen
+        @media #{$smallScreen} {
+            height: $mastHeightSmallScreen;
+        }
+
+        //default - medium + large screens
+        @media #{$mediumScreen, $largeScreen} {
+            height: $mastHeight;
+        }
+
+        box-sizing: border-box;
+        padding: 4px;
+    }
+
+    i {
+        box-sizing: border-box;
+
+        @media #{$smallScreen} {
+            font-size: $mastToggleIconFontSizeSmallScreen;
+            line-height: $mastToggleIconLineHeightSmallScreen
+        }
+    }
+
+    #mastDeviceInfo, #mastUserInfo {
+        // IE 10 support
+        display: -ms-flexbox;
+        -ms-flex-pack: center;
+
+        //small screen
+        @media #{$smallScreen} {
+            display: none;
+        }
+
+        //default - medium + large screens
+        @media #{$mediumScreen, $largeScreen} {
+            display: visible;
+        }
+    }
+}
+
+
+/*
+ * NavPane
+ *  -positioned under the mast to the left
+ *  -fills to the bottom
+ *  -no horizontal overflow (manually configure width based on nav items)
+ *  -will scroll vertically if needed
+ */
+
+#navPane {
+
+    //small screen
+    @media #{$smallScreen} {
+        width: $navPaneWidthSmallScreen;
+        top: $mastHeightSmallScreen;
+    }
+
+    //defualt - medium and large screens
+    @media #{$mediumScreen, $largeScreen} {
+        width: $navPaneWidth;
+        top: $mastHeight;
+    }
+
+    position: absolute;
+    bottom: 0px;
+
+    z-index: 10;
+
+    box-sizing: border-box;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background-color: $navPaneBackgroundColor;
+    color: $navPaneTextColor;
+    border-right: solid 1px $navPaneBorderRightColor;
+    box-shadow: 2px 0 5px -2px black;
+
+    >.group {
+        margin: 20px;
+
+        .heading {
+            //small screen
+            @media #{$smallScreen} {
+                font-size: $navHeadingFontSizeSmallScreen;
+            }
+
+            font-weight: bold;
+            color: $navGroupHeadingColor;
+            padding: 5px;
+        }
+
+        ul {
+            margin: 10px 0px 0px 0px;
+            list-style-type: none;
+            font-size: 1.1em;
+        }
+
+        li {
+            margin: 5px;
+            padding: 8px 0px;
+        }
+
+        a {
+            //small screen
+            @media #{$smallScreen} {
+                font-size: $navItemFontSizeSmallScreen;
+            }
+
+            //default - medium + large screens
+            @media #{$mediumScreen, $largeScreen} {
+                font-size: $navItemFontSize;
+            }
+
+            color: $navItemNormalColor;
+            text-decoration: none;
+            line-height: $navItemLineHeight;
+            &:hover {
+                color: $navItemHoverColor;
+            }
+            &.active {
+                color: $navItemActiveColor;
+            }
+        }
+    }
+
+    >hr {
+        border: none;
+        height: 2px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background-color: $navGroupSeparatorColor;
+    }
+}
+
+.navPaneTrans-enter {
+    left: -$navPaneWidth;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+}
+
+.navPaneTrans-enter-active {
+    left: 0px;
+}
+
+.navPaneTrans-leave {
+    left: 0px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+}
+
+.navPaneTrans-leave-active {
+    left: -$navPaneWidth;
+}
+
+/*
+ * ViewPane
+ *  -where the router puts the active route
+ *  -fills to the bottom and to the right
+ *  -will scroll vertically and horizontally if needed
+ */
+
+#viewPane {
+    //small screen
+    @media #{$smallScreen} {
+        top: $mastHeightSmallScreen;
+    }
+
+    //defualt - medium + large screens
+    @media #{$mediumScreen, $largeScreen} {
+        top: $mastHeight;
+    }
+
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    right: 0px;
+
+    overflow: auto;
+
+    background-color: $viewPaneBackgroundColor;
+
+    &.navPaneShown {
+        left: $navPaneWidth;
+    }
+}
+
+/*
+ * Style the grommet login (git rid of the layer container "white border").
+ */
+.appLoginLayer {
+    z-index: 200; // must be larger than mast and navPane
+
+    &.progress {
+        cursor: progress;
+    }
+
+    &.progress * {
+        cursor: progress;
+    }
+
+    .layer__container {
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+
+    #appLoginForm {
+        .login-form__logo  {
+            width: 277px;
+            height: 96px;
+        }
+    }
+}
+
+/*
+ * Style the grommet layer for the notification.
+ */
+.appNotificationLayer {
+    z-index: 300; // must be larger than mast, navpane & login
+
+    hr {
+        border: 0;
+        height: 1px;
+        background-color: $appNotificationDivderBackgroundColor;
+    }
+}
+
+/*
+ * Style scrollbars - add scrollbar class to get scrollbar
+ */
+.scrollbar {
+    ::-webkit-scrollbar {
+        width: 15px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background-color: white;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: lightgray;
+        border-radius: 10px;
+        border-color: white;
+        border-width: 4px;
+        border-style: solid;
+    }
+}
+
+/*
+ * disabling general grommet styles affecting css
+ */
+.button {
+    border-radius: 4px;
+}
+
+.menu {
+    font-size: inherit;
+}
+
+.table th {
+    font-size: inherit;
+}

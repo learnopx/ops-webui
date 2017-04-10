@@ -1,0 +1,387 @@
+/*
+ (C) Copyright 2015 Hewlett Packard Enterprise Development LP
+
+    Licensed under the Apache License, Version 2.0 (the "License"); you may
+    not use this file except in compliance with the License. You may obtain
+    a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations
+    under the License.
+*/
+
+@import "~_settings.scss";
+
+// Override the default font for bit text.
+h1, h2, h3, .headline, .title {
+  font-family:'Exo', Arial, sans-serif;
+}
+
+.disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.control-icon {
+  &.noColor {
+    stroke: none;
+    fill: none;
+  }
+  &.disabled {
+    @extend .disabled;
+  }
+}
+
+.toolbar .box {
+  height: 100%;
+}
+
+// FIXME: problem on overview page Log header text height
+@supports (overflow:-webkit-marquee) and (justify-content:inherit) {
+  // Safari 9.0+
+  b.safari {
+    margin-bottom: 12px;
+  }
+}
+
+// FIXME: IE doesn't scale the SVG correctly
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .boxGraphic {
+    overflow: auto;
+    svg {
+      width: 980px !important;
+      height: 120px !important;
+    }
+  }
+}
+
+@mixin flex($g, $s, $b) {
+  // Need to special case for each browser - they are implemented differently :(
+  flex: $g $s $b;
+  -webkit-flex: $g $s $b;
+  -moz-flex: $g $s $b;
+
+  @supports (overflow:-webkit-marquee) and (justify-content:inherit) {
+    // Safari 9.0+
+    @if ($b == 0) {
+      -webkit-flex: $g $s 300px; // Bug in Safari 9+
+    }
+  }
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    @if ($b != auto) {
+      flex: $g;
+    }
+  }
+
+  min-width: 0; //https://code.google.com/p/chromium/issues/detail?id=546034#c6
+  min-height: 0;
+}
+
+.flex0auto { @include flex(0, 0, auto); }
+.flex1auto { @include flex(1, 0, auto); }
+.flex2auto { @include flex(2, 0, auto); }
+
+.flex0 { @include flex(0, 0, 0); }
+.flex1 { @include flex(1, 0, 0); }
+.flex2 { @include flex(2, 0, 0); }
+
+.flexWrap {
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+}
+
+@mixin minHxW($h: 200px, $w: 200px) {
+  min-height: $h;
+  min-width: $w;
+}
+
+.min200x200 { @include minHxW(); }
+.min200x400 { @include minHxW(200px, 400px); }
+.min150x400 { @include minHxW(150px, 400px); }
+.min100x200 { @include minHxW(100px, 200px); }
+.min300x300 { @include minHxW(300px, 300px); }
+.min300x300 { @include minHxW(300px, 300px); }
+
+// Single line for the 'hr' plain html element
+hr {
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+}
+
+table th {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+// Property styles for 'propTable' plain html tables
+table.propTable {
+  tbody {
+    vertical-align: top;
+  }
+  td:first-child {
+    font-weight: bold;
+  }
+  td {
+    padding-right: 16px;
+    padding-bottom: 16px;
+    word-wrap: break-word;
+  }
+  margin-bottom: 0px;
+}
+
+// Property styles for 'logTable' plain html tables
+.logTable {
+  overflow-y: auto;
+  overflow-x: hidden;
+  table {
+    width: 100%;
+    table-layout: fixed;
+    tbody {
+      vertical-align: top;
+    }
+    td {
+      padding-right: 16px;
+      padding-bottom: 16px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    margin-bottom: 0px;
+  }
+}
+
+@mixin pageBox($marginTop: $space, $marginLeft: $space) {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px lightgray;
+  box-sizing: border-box;
+  margin-top: $marginTop;
+  margin-left: $marginLeft;
+  overflow: auto;
+}
+
+#page {
+  height: 100vh;
+
+  .mTop { margin-top: $space; }
+  .mTopHalf { margin-top: $space/2; }
+  .mRight { margin-right: $space; }
+  .mBottom { margin-bottom: $space; }
+  .mLeft { margin-left: $space; }
+
+  .pTop { padding-top: $space; }
+  .pRight { padding-right: $space; }
+  .pBottom { padding-bottom: $space; }
+  .pLeft { padding-left: $space; }
+
+  #pageContent {
+    background-color: $pageBgColor;
+    overflow: auto;
+    // The following margin top/left (along with the .pageBox space) provides
+    // spacing between pageBox items if the items are on the same row only,
+    // when pageBox items wrap, the margin is not added.
+    margin-left: -$space;
+
+    .pageBox {
+      @include pageBox();
+    }
+  }
+}
+
+.mTopBottomAuto { margin-top: auto; margin-bottom: auto; }
+
+// Adds a continuous spin to an element (i.e. refresh icon).
+.spin {
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%; /* IE 9 */
+  -webkit-animation: spin 3s infinite linear;
+  -moz-animation: spin 3s infinite linear;
+  -o-animation: spin 3s infinite linear;
+  animation: spin 3s infinite linear;
+}
+@-moz-keyframes spin {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@mixin rotate($deg) {
+  transform: rotate($deg);
+  -moz-transform: rotate($deg);
+  -webkit-transform: rotate($deg);
+}
+
+.rotate45 {
+  @include rotate(45deg);
+}
+
+.mHalf {
+  margin: $space/2;
+}
+
+.guide {
+  overflow: auto;
+  background-color: $pageBgColor;
+  > div {
+    margin-top: $space;
+    margin-bottom: $space/2;
+    margin-left: $space;
+    margin-right: $space;
+    border-radius: 5px;
+    border: 3px solid $brand-color;
+  }
+  .header {
+    height: 48px;
+  }
+  ul {
+    margin-left: 1rem;
+    margin-bottom: 4px;
+    li {
+      max-width: none;
+      margin-bottom: 4px;
+    }
+  }
+  td {
+    padding-right: 16px;
+  }
+}
+
+// Nice for debugging
+.redBorder {
+  border: 3px solid red;
+}
+.greenBorder {
+  border: 3px solid green;
+}
+.blueBorder {
+  border: 3px solid blue;
+}
+.redBg {
+  background-color: red;
+}
+.greenBg {
+  background-color: green;
+}
+.blueBg {
+  background-color: blue;
+}
+
+// General slide in animation for a column
+
+$slideInColumnMinWidth: 350px;
+
+.slideInColumn-appear {
+  width: 0px;
+  &.slideInColumn-appear-active {
+    width: $slideInColumnMinWidth;
+    transition: all .5s ease-in;
+  }
+}
+
+// Grommet overrides start here...
+
+@media screen and (min-width: 45em) {
+  .edit .layer__container {
+    margin: 8px;
+    border: 3px solid $brand-color;
+  }
+}
+
+.edit {
+  .layer__container {
+    min-width: 300px;
+  }
+  &.layer {
+    z-index: 100;
+    &.second {
+      z-index: 101;
+    }
+    &.third {
+      z-index: 102;
+    }
+  }
+  .title {
+    line-height: 1.5em; // else the font gets clipped on bottom
+  }
+}
+
+body .drop {
+  z-index: 110;
+}
+
+.confirm.layer {
+  z-index: 150;
+}
+.asyncStatus.layer {
+  z-index: 200;
+  &.clear {
+    background-image: none;
+  }
+  .layer__container {
+    .meter__graphic:focus {
+      outline-width: 0px;
+    }
+  }
+}
+
+.error.layer {
+  z-index: 1000;
+}
+
+// Override the sidebar-width for the navigation pane.
+$sidebar-width: 320px; // this is used by _objects.sidebar.scss
+
+// Include all the Grommet styles.
+$fontsPath: '../shared/assets';
+@import "grommet.scss";
+
+// The original rule throws off vertical centering of the anchors in headers.
+.menu a:not(.button) {
+  margin-bottom: 0px;
+}
+
+// Navigation highlight text when selected
+nav.menu--primary > a:not(.button).active {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+// Addes animation to the sidebars
+.sidebar {
+  @include media-query(lap-and-up) {
+    @include animation('slide-sidebar 0.5s');
+  }
+  nav header {
+    opacity: 0.2;
+  }
+}
+@include keyframes(slide-sidebar) {
+  0% { width: 0px; }
+  100% { width: $sidebar-width; }
+}
+
+u {
+  text-decoration: underline;
+}
+
+.search--inline input.search__input {
+  width: 160px;
+}
+
+nav.menu--primary > a:not(.button).active {
+  border-color: $brand-color-2;
+}

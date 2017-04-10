@@ -1,0 +1,17 @@
+/*
+ * Properties table styles.
+ * @author Frank Wood
+ */
+
+.propTable {
+
+    tr {
+        height: 2em;
+
+        td:first-child {
+            font-weight: bold;
+            padding-right: 20px;
+        }
+    }
+
+}

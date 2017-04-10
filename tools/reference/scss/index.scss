@@ -1,0 +1,143 @@
+/*
+ * Main entry point for loading the styles.
+ * @author Kelsey Dedoshka
+ * @author Frank Wood
+ */
+
+// mast, routeView
+$mastHeight: 3em;
+$mastHeightSmallScreen: 5em;
+
+// mast
+$mastBackgroundColor: white;
+$mastTextColor: black;
+$mastBorderBottomColor: lightgrey;
+$mastToggleIconFontSizeSmallScreen: 3.0em;
+$mastToggleIconLineHeightSmallScreen: 1.5em;
+
+// NavPane, viewPane
+$navPaneWidth: 180px;
+$navPaneWidthSmallScreen: 400px;
+
+// NavPane
+$navPaneBackgroundColor: #404040;
+$navPaneTextColor: black;
+$navGroupHeadingColor: grey;
+$navGroupSeparatorColor: #383838;
+$navPaneBorderRightColor: #2e2e2e;
+$navItemNormalColor: #bbbbbb;
+$navItemHoverColor: white;
+$navItemActiveColor: #FF6F3E;
+$navItemLineHeight: 1.5em;
+$navItemFontSizeSmallScreen: 2.5em;
+$navItemFontSize: 0.9em;
+$navHeadingFontSizeSmallScreen: 2.2em;
+
+// viewPane & viewBox
+$viewPaneMargin: 24px;
+$viewPaneBackgroundColor: #F5F5F5;
+$viewBoxBackgroundColor: white;
+$viewBoxShadow: 0px 0px 3px lightgrey;
+$viewBoxHeaderBorderBottom: solid 1px lightgrey;
+$viewBoxHeaderFontSizeLarge: 2.5em;
+$viewBoxHeaderFontSize: 1.5em;
+$viewBoxHeaderFontWeight: 100;
+
+// icons (font-awesome and grommet)
+$iconNormalColor: #999;
+$iconHoverColor: black;
+
+// status colors - those used by by grommet
+$statusColorGreen: #4EB976;
+$statusColorRed: #F04953;
+// status color - not grommet
+$statusColorOrange: #FFB657;
+
+// App notification
+$appNotificationDivderBackgroundColor: lightgrey;
+
+// Table font sizes
+$tableFontSize: 1.0rem;
+$tableFontSizeMedium: 1.25rem;
+$tableFontSizeLarge: 1.75rem;
+
+// grommet imports
+// Pack fonts so that grommet won't go out looking for them.
+// (see grommet _settings.font.scss).
+// TODO: stop grommet from attempting to load the remote font.
+@import '_openswitch.defaults.scss';
+@import '~grommet/scss/grommet-core/index';
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../font/SourceSansPro-Light.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../font/SourceSansPro-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../font/SourceSansPro-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: url(../font/SourceSansPro-Italic.ttf) format('truetype');
+}
+
+.headerFont {
+  font-family:'Exo', Arial, sans-serif;
+}
+
+// Notes on media CSS...
+//
+// If [device width] is greater than or equal to min-width than do...
+// If [device width] is less than or equal to max-width than do...
+// $smallScreen: 'only screen and (max-width: 640px)';
+// $mediumScreen: 'only screen and (min-width: 641px) and (max-width: 1024px)';
+// $largeScreen: 'only screen and (min-width: 1025px)';
+//
+// Usage:
+// @media #{$smallScreen}
+// @media #{$mediumScreen}
+// @media #{$largeScreen}
+$smallScreen: "only screen and (min-device-width: 320px) and (max-device-width: 767px)";
+$mediumScreen: "only screen and (min-device-width: 768px)" +
+    " and (max-device-width: 1024px)";
+$largeScreen: "only screen and (min-device-width: 1025px)";
+
+
+@import 'app.scss';
+
+// component styles
+@import 'components/actionIcon.scss';
+@import 'components/view.scss';
+@import 'components/boxGraphic.scss';
+@import 'components/port.scss';
+@import 'components/colorBlock.scss';
+@import 'components/vlanKey.scss';
+@import 'components/table.scss';
+@import 'components/propTable.scss';
+@import 'components/statusText.scss';
+@import 'components/checkBox.scss';
+
+// view styles
+@import 'views/dashboardView.scss';
+@import 'views/portsMonitorView.scss';
+@import 'views/portsMgmtView.scss';
+@import 'views/vlanMgmtView.scss';
+@import 'views/systemMonitorView.scss';
+@import 'views/lagView.scss';
+
+// Turn off all scroll bars?
+// ::-webkit-scrollbar {
+//     display: none;
+// }

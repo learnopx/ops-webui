@@ -1,0 +1,69 @@
+/*
+ * port mgmt view styles
+ * @author Kelsey Dedoshka
+ */
+
+#portsMgmtView {
+
+    .portStatusKey {
+
+        //styles for the toolbar key
+        .keyTitle {
+            margin-left: 15px;
+            margin-right: 25px;
+        }
+
+        &.up {
+            width: 100px;
+        }
+
+        &.port {
+            width: 110px;
+        }
+
+        &.adminDisabled {
+            width: 230px;
+        }
+
+        &.linkDisabled {
+            width: 200px;
+        }
+
+        //styles for the ports and the
+        //status icons inside each port
+        .ports {
+            &.up {
+                .fa {
+                    color: $statusColorGreen;
+                }
+            }
+
+            &.interface {
+                display: inline-block;
+                width: 150px;
+                height: 17px;
+                border-radius: 2.0px;
+                background-color: black;
+
+            }
+
+            &.adminDisabled {
+                .fa {
+                    color: $statusColorRed;
+                }
+            }
+
+            &.linkDisabled {
+                .fa {
+                    color: $statusColorOrange;
+                }
+            }
+        }
+    }
+
+    //basic styling for port list table
+    .portTable {
+        height: 600px;
+        overflow-y: scroll;
+    }
+}

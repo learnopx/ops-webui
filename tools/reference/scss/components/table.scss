@@ -1,0 +1,47 @@
+/*
+ * Custom table styles.
+ * @author Kelsey Dedoshka
+ */
+
+tbody, thead {
+
+    line-height: 1em;
+    font-weight: normal;
+
+    @media #{$smallScreen} {
+        font-size: $tableFontSizeLarge;
+    }
+
+    @media #{$mediumScreen} {
+        font-size: $tableFontSize;
+    }
+
+    @media #{$largeScreen} {
+        font-size: $tableFontSize;
+    }
+}
+
+.defaultTable {
+
+    // style even rows - alternate table
+    // row colors
+    > table > tbody > tr:nth-child(even) {
+        background-color: #F2F2F2;
+    }
+
+    width: 100%;
+    position: relative;
+}
+
+.basicTable {
+    width: 100%;
+
+    tr td:first-child {
+        font-weight: bold;
+        padding-right: 20px;
+    }
+
+    tr td:nth-child(2) {
+        color: gray;
+    }
+}
